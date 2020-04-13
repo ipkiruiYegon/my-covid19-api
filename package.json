@@ -1,0 +1,36 @@
+{
+  "name": "my-covid19-api",
+  "version": "1.0.0",
+  "description": "backend for a Covid-19 estimator app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipkiruiYegon/my-covid19-api.git"
+  },
+  "author": "Yegon Kipkirui Geoffrey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ipkiruiYegon/my-covid19-api/issues"
+  },
+  "homepage": "https://github.com/ipkiruiYegon/my-covid19-api#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.9.2",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-arrow-functions": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
+    "nodemon": "^2.0.3"
+  }
+}
