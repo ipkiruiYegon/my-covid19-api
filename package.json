@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "watch": "NODE_ENV=development DEBUG=my-covid19-api:debug nodemon ./src/index.js --exec babel-node",
-    "createDbTables": "node db.js createTables"
+    "createDbTables": "node db.js createTables",
+    "rdist": "babel src -d dist --source-maps",
+    "start": "npm run prod",
+    "prod": "NODE_ENV=production npm-run-all clean rdist createDbTables server:prod",
+    "clean": "rimraf dist",
+    "server:prod": "node ./dist/index.js"
   },
   "repository": {
     "type": "git",
