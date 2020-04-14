@@ -18,7 +18,10 @@ const getDurationInMilliseconds = (start) => {
   return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS;
 };
 
-const allowedOrigins = ['http://localhost:3001'];
+const allowedOrigins = [
+  'http://localhost:3001',
+  'https://my-covid19.herokuapp.com',
+];
 app.use(
   cors({
     origin(origin, callback) {
