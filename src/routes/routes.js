@@ -9,11 +9,10 @@ const fs = require('fs');
 const router = express.Router();
 
 router.post('/api/v1/on-covid-19', async (req, res, next) => {
-  //debug(Object.entries(req.body));
-  if (req.body.data) {
+  if (req.body) {
     try {
       // const reqData = req.body;
-      const data = await covid19.estimator(req.body.data);
+      const data = await covid19.estimator(req.body);
       res.status(200);
       res.json({
         ...data,
@@ -31,9 +30,9 @@ router.post('/api/v1/on-covid-19', async (req, res, next) => {
 });
 
 router.post('/api/v1/on-covid-19/json', async (req, res, next) => {
-  if (req.body.data) {
+  if (req.body) {
     try {
-      const data = await covid19.estimator(req.body.data);
+      const data = await covid19.estimator(req.body);
       debug('data', data);
       res.status(200);
       res.json({
@@ -52,9 +51,9 @@ router.post('/api/v1/on-covid-19/json', async (req, res, next) => {
 });
 
 router.post('/api/v1/on-covid-19/xml', async (req, res, next) => {
-  if (req.body.data) {
+  if (req.body) {
     try {
-      const data = await covid19.estimator(req.body.data);
+      const data = await covid19.estimator(req.body);
       const builder = new xml2js.Builder();
       const xml = builder.buildObject(data);
       res.status(200);
