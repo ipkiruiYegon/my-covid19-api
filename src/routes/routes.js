@@ -9,8 +9,10 @@ const fs = require('fs');
 const router = express.Router();
 
 router.post('/api/v1/on-covid-19', async (req, res, next) => {
+  //debug(Object.entries(req.body));
   if (req.body.data) {
     try {
+      // const reqData = req.body;
       const data = await covid19.estimator(req.body.data);
       res.status(200);
       res.json({
@@ -72,8 +74,9 @@ router.post('/api/v1/on-covid-19/xml', async (req, res, next) => {
 
 router.get('/api/v1/on-covid-19/logs', async (req, res, next) => {
   try {
-    const sql = 'SELECT req_method, url,res_code,res_duration from req_logs';
-    const { rows } = await db.query(sql);
+    const sql =
+      'SELECT req_method, url,res_code,res_duration from req_logs WHERE status=$1';
+    const { rows } = await db.query(sql, [1]);
 
     if (rows) {
       let resStr = '';
@@ -92,6 +95,30 @@ router.get('/api/v1/on-covid-19/logs', async (req, res, next) => {
       res.set('Content-Type', 'text/plain');
 
       res.send(resStr);
+    } else {
+      res.status(404);
+      res.json({
+        status: 'success',
+        msg: 'no logs found',
+      });
+    }
+  } catch (error) {
+    debug(error);
+    next(error);
+  }
+});
+
+router.get('/api/v1/on-covid-19/admin/logs', async (req, res, next) => {
+  try {
+    const sql = 'SELECT * from req_logs';
+    const { rows } = await db.query(sql);
+
+    if (rows) {
+      res.status(200);
+      res.json({
+        status: 'success',
+        logs: rows,
+      });
     } else {
       res.status(404);
       res.json({

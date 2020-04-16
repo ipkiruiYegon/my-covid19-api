@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "NODE_ENV=development DEBUG=my-covid19-api:debug nodemon ./src/index.js --exec babel-node",
     "createDbTables": "node db.js createTables",
+    "dropDbTables": "node db.js dropTables",
     "rdist": "babel src -d dist --source-maps",
     "start": "npm run prod",
     "prod": "NODE_ENV=production npm-run-all clean rdist createDbTables server:prod",

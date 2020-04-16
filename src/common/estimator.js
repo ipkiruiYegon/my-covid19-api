@@ -131,6 +131,7 @@ const generateSevereImpact = (
 
 const Covid19 = {
   async estimator(data) {
+    debug(data);
     // genearte impact report
     const impact = await generateImpact(
       data.reportedCases,

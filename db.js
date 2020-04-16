@@ -27,7 +27,7 @@ const dropTables = () => {
 };
 
 const createTables = () => {
-  const dbTables = `CREATE TABLE IF NOT EXISTS req_logs(id SERIAL PRIMARY KEY,req_id VARCHAR NOT NULL,req_method VARCHAR,url VARCHAR,res_code VARCHAR,res_duration VARCHAR,res_close VARCHAR)`;
+  const dbTables = `CREATE TABLE IF NOT EXISTS req_logs(id SERIAL PRIMARY KEY,req_id VARCHAR NOT NULL,req_method VARCHAR,url VARCHAR,req_body VARCHAR,res_code VARCHAR,res_duration VARCHAR,res_close VARCHAR,status VARCHAR DEFAULT 0)`;
 
   pool
     .query(dbTables)
