@@ -58,7 +58,7 @@ router.post('/api/v1/on-covid-19/xml', async (req, res, next) => {
       const builder = new xml2js.Builder();
       const xml = builder.buildObject(data);
       res.status(200);
-      res.set('Content-Type', 'text/xml');
+      res.setHeader('Content-Type', 'application/xml');
       res.send(xml);
     } catch (error) {
       debug(error);
@@ -81,7 +81,8 @@ router.get('/api/v1/on-covid-19/logs', async (req, res, next) => {
     if (rows) {
       let resStr = '';
       rows.forEach((row) => {
-        let resDuration = Math.round(parseInt(row.res_duration));
+        let resDuration = row.res_duration === null ? 0 : row.res_duration;
+        resDuration = Math.round(parseInt(resDuration));
         if (resDuration < 10) {
           resDuration = '0' + resDuration;
         }
@@ -90,7 +91,7 @@ router.get('/api/v1/on-covid-19/logs', async (req, res, next) => {
           `${row.req_method.trim()}\t${row.url.trim()}\t${row.res_code.trim()}\t${resDuration}ms\n`;
       });
       res.status(200);
-      res.set('Content-Type', 'text/plain');
+      res.setHeader('Content-Type', 'text/plain');
 
       res.send(resStr);
     } else {
