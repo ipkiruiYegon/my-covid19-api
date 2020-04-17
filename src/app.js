@@ -57,9 +57,9 @@ app.use(async (req, res, next) => {
   const reqLogs =
     'INSERT INTO req_logs(req_id, req_method, url,req_body) VALUES ($1, $2, $3,$4) returning id';
   const { rows } = await db.query(reqLogs, [
-    req.requestId,
-    req.method,
-    req.originalUrl,
+    req.requestId.trim(),
+    req.method.trim(),
+    req.originalUrl.trim(),
     req_data,
   ]);
 

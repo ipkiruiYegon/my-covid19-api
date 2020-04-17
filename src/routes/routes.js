@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const xml2js = require('xml2js');
 const debug = require('debug')('my-covid19-api:debug');
@@ -80,15 +81,13 @@ router.get('/api/v1/on-covid-19/logs', async (req, res, next) => {
     if (rows) {
       let resStr = '';
       rows.forEach((row) => {
-        if (resStr === '') {
-          resStr =
-            resStr +
-            `${row.req_method}  ${row.url}  ${row.res_code} ${row.res_duration}ms`;
-        } else {
-          resStr =
-            resStr +
-            `\n${row.req_method}  ${row.url}  ${row.res_code} ${row.res_duration}ms`;
+        let resDuration = Math.round(parseInt(row.res_duration));
+        if (resDuration < 10) {
+          resDuration = '0' + resDuration;
         }
+        resStr =
+          resStr +
+          `${row.req_method.trim()}\t${row.url.trim()}\t${row.res_code.trim()}\t${resDuration}ms\n`;
       });
       res.status(200);
       res.set('Content-Type', 'text/plain');
